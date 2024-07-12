@@ -2,6 +2,22 @@ let number1;
 let number2;
 let operation;
 
+const calcScreen = document.getElementById('calc-screen')
+const clearBtn = document.getElementById('btnc')
+const numberBtns = document.querySelectorAll('.number')
+
+
+clearBtn.addEventListener('click', (e) => {
+    calcScreen.innerText = ''
+})
+
+for (let btnElement of numberBtns) {
+    btnElement.addEventListener('click', (e) => {
+        calcScreen.innerText += e.target.innerText
+    })
+}
+
+
 function add(num1, num2) {
     return num1 + num2
 }
