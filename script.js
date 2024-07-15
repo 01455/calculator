@@ -6,17 +6,19 @@ const calcScreen = document.getElementById('calc-screen')
 const clearBtn = document.getElementById('btnc')
 const numberBtns = document.querySelectorAll('.number')
 
+let displayValue = +calcScreen.innerText
 
 clearBtn.addEventListener('click', (e) => {
     calcScreen.innerText = ''
+    displayValue = +calcScreen.innerText
 })
 
 for (let btnElement of numberBtns) {
     btnElement.addEventListener('click', (e) => {
         calcScreen.innerText += e.target.innerText
+        displayValue = +calcScreen.innerText
     })
 }
-
 
 function add(num1, num2) {
     return num1 + num2
