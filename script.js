@@ -1,91 +1,89 @@
-let number1;
-let number2;
-let operation;
-let operatorCount = 0
-let lastResult;
+let number1 = '';
+let number2 = '';
+let operation = '';
+let lastResult = '';
 
-const calcScreen = document.getElementById('calc-screen')
-const clearBtn = document.getElementById('btnc')
-const numberBtns = document.querySelectorAll('.number')
-const operatorBtns = document.querySelectorAll('.operator')
-const equalsBtn = document.getElementById('btn=')
-
-let displayValue = +calcScreen.innerText
+const calcScreen = document.getElementById('calc-screen');
+const clearBtn = document.getElementById('btnc');
+const numberBtns = document.querySelectorAll('.number');
+const operatorBtns = document.querySelectorAll('.operator');
+const equalsBtn = document.getElementById('btn=');
 
 clearBtn.addEventListener('click', (e) => {
-    calcScreen.innerText = 0
-    displayValue = +calcScreen.innerText
-    number1 = ''
-    number2 = ''
-    operation = ''
-    operatorCount = 0
-    lastResult = ''
-})
+    calcScreen.innerText = 0;
+    number1 = '';
+    number2 = '';
+    operation = '';
+    lastResult = '';
+});
 
-for (let btnElement of numberBtns) {
+numberBtns.forEach(btnElement => {
     btnElement.addEventListener('click', (e) => {
-        if (calcScreen.innerText == 0) {
+        if (calcScreen.innerText == '0' || operation && calcScreen.innerText == number1.toString()) {
             calcScreen.innerText = e.target.innerText;
         } else {
             calcScreen.innerText += e.target.innerText;
         }
-        displayValue = +calcScreen.innerText
-    })
-}
+    });
+});
 
-for (let btnElement of operatorBtns) {
+operatorBtns.forEach(btnElement => {
     btnElement.addEventListener('click', (e) => {
-        if (operatorCount === 0) {
-            number1 = +calcScreen.innerText
-            operation = e.target.innerText
-            calcScreen.innerText = ''
-            operatorCount++
+        if (operation && calcScreen.innerText !== '' && calcScreen.innerText !== number1.toString()) {
+            number2 = +calcScreen.innerText;
+            lastResult = operate(operation, number1, number2);
+            calcScreen.innerText = lastResult;
+            number1 = lastResult;
+            number2 = '';
+        } else {
+            number1 = +calcScreen.innerText;
         }
-        else if (!operatorCount % 2 === 0) {
-            number1 = +lastResult
-            operation = e.target.innerText
-            calcScreen.innerText = ''
-            operatorCount++
+        operation = e.target.innerText;
+
+        if (calcScreen.innerText !== lastResult.toString()) {
+            calcScreen.innerText = number1.toString();
         }
-    })
-}
+    });
+});
 
 equalsBtn.addEventListener('click', (e) => {
-    // add logic to finish calculation, save number2
-    if (!calcScreen.innerText == '') {
-        number2 = +calcScreen.innerText
-        calcScreen.innerText = operate(operation, number1, number2)
-        lastResult = +calcScreen.innerText
+    if (operation && calcScreen.innerText !== '') {
+        number2 = +calcScreen.innerText;
+        lastResult = operate(operation, number1, number2);
+        calcScreen.innerText = lastResult;
+        number1 = lastResult;
+        number2 = '';
+        operation = '';
     }
-})
+});
 
 function add(num1, num2) {
-    return num1 + num2
+    return num1 + num2;
 }
 
 function subtract(num1, num2) {
-    return num1 - num2
+    return num1 - num2;
 }
 
 function multiply(num1, num2) {
-    return num1 * num2
+    return num1 * num2;
 }
 
 function divide(num1, num2) {
-    return num1 / num2
+    return num1 / num2;
 }
 
 function operate(operator, num1, num2) {
-    switch(operator) {
+    switch (operator) {
         case '+':
-            return add(num1,num2)
+            return add(num1, num2);
         case '-':
-            return subtract(num1,num2)
+            return subtract(num1, num2);
         case 'X':
-            return multiply(num1,num2)
+            return multiply(num1, num2);
         case '/':
-            return divide(num1,num2)
+            return divide(num1, num2);
         default:
-            return 'Invalid operator error'
+            return 'Invalid operator error';
     }
 }
