@@ -8,18 +8,24 @@ body{
 }
 
 #calc-container{
-    outline: 1px solid black;
+    outline: 3px solid black;
     width: 375px;
     height: 525px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #838996;
+    background: rgba(19, 19, 19, 0.53);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(19, 19, 19, 0.3);
 }
 
 #calc-screen {
-    outline: 2px solid black;
+    border: 2px solid black;
+    box-shadow: 1px 1px 1px rgb(0, 0, 0);
     width: 350px;
     height: 55px;
     font-size: 25px;
@@ -28,7 +34,7 @@ body{
     justify-content: end;
     padding-right: 15px;
     margin-bottom: 15px;
-    background-color: #CDFCF6;
+    background-color: #def3ff;
 }
 
 #btn-container {
@@ -42,11 +48,45 @@ body{
 }
 
 .calc-btn {
-    outline: 1px solid black;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5%;
+    box-shadow: 1px 1px 1px rgb(0, 0, 0);
     width: 100px;
     height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #F8F8F8;
+}
+
+#btnc {
+    background-color: rgb(255, 205, 205);
+}
+
+#btnc:active {
+    background-color: rgb(255, 151, 151);
+}
+
+#btn\= {
+    background-color: rgb(215, 255, 215);
+}
+
+#btn\=:active {
+    background-color: rgb(150, 255, 150);
+}
+
+.operator {
+    background-color: rgb(199, 209, 255);
+}
+
+.operator:active {
+    background-color: rgb(132, 154, 255);
+}
+
+.number {
+    background-color: rgb(255, 255, 255);
+}
+
+.number:active {
+    background-color: rgb(233, 233, 233);
 }
