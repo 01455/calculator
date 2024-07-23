@@ -2,6 +2,7 @@ let number1 = '';
 let number2 = '';
 let operation = '';
 let lastResult = '';
+const maxDisplayLength = 24;
 
 const calcScreen = document.getElementById('calc-screen');
 const clearBtn = document.getElementById('btnc');
@@ -19,10 +20,12 @@ clearBtn.addEventListener('click', (e) => {
 
 numberBtns.forEach(btnElement => {
     btnElement.addEventListener('click', (e) => {
-        if (calcScreen.innerText == '0' || operation && calcScreen.innerText == number1.toString()) {
-            calcScreen.innerText = e.target.innerText;
-        } else {
-            calcScreen.innerText += e.target.innerText;
+        if (calcScreen.innerText.length < maxDisplayLength) {
+            if (calcScreen.innerText === '0' || (operation && calcScreen.innerText === number1.toString())) {
+                calcScreen.innerText = e.target.innerText;
+            } else {
+                calcScreen.innerText += e.target.innerText;
+            }
         }
     });
 });
@@ -70,20 +73,32 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
+    if (num2 === 0) {
+        return "Nice try! Division by zero is undefined.";
+    }
     return num1 / num2;
 }
 
 function operate(operator, num1, num2) {
+    let result;
     switch (operator) {
         case '+':
-            return add(num1, num2);
+            result = add(num1, num2);
+            break;
         case '-':
-            return subtract(num1, num2);
+            result = subtract(num1, num2);
+            break;
         case 'X':
-            return multiply(num1, num2);
+            result = multiply(num1, num2);
+            break;
         case '/':
-            return divide(num1, num2);
+            result = divide(num1, num2);
+            break;
         default:
             return 'Invalid operator error';
     }
+    if (typeof result === 'number') {
+        result = parseFloat(result.toFixed(2));
+    }
+    return result;
 }
