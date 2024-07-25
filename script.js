@@ -9,6 +9,7 @@ const clearBtn = document.getElementById('btnc');
 const numberBtns = document.querySelectorAll('.number');
 const operatorBtns = document.querySelectorAll('.operator');
 const equalsBtn = document.getElementById('btn=');
+const decimalBtn = document.getElementById('btn.')
 
 clearBtn.addEventListener('click', (e) => {
     calcScreen.innerText = 0;
@@ -59,6 +60,12 @@ equalsBtn.addEventListener('click', (e) => {
         operation = '';
     }
 });
+
+decimalBtn.addEventListener('click', (e) => {
+    if (!calcScreen.innerText.includes('.')) {
+        calcScreen.innerText += '.'
+    }
+})
 
 function add(num1, num2) {
     return num1 + num2;
